@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>manufacturing defect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select{
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .radio-group input {
+            margin-right: 5px;
+        }
+        .radio-group label {
+            margin: 0;
+            color: #333;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Manufacturing Defect Prediction</h1>
+<div class="container">
+    <form action="/predict" method="POST">
+        <label for="vol">Production volume</label>
+        <input type="number" id="vol" name="vol"min = 50 max = 5000 value="{{ request.form.vol if request.form else '' }}" required>
+
+        <label for="cost">Production cost($)</label>
+        <input type="number" id="cost" name="cost"min = 1000 value="{{ request.form.cost if request.form else '' }}" required>
+
+        <label for="qual">Supplier quality(%)</label>
+        <input type="number" id="qual" name="qual"min = 0 max=100 value="{{ request.form.qual if request.form else '' }}" required>
+
+        <label for="rate">Defect rate/1000 units</label>
+        <input type="number" id="rate" name="rate"min=0 max=10 step=0.10 value="{{ request.form.rate if request.form else '' }}" required>
+
+        <label for="score">Quality score(%)</label>
+        <input type="number" id="score" name="score" min=0 max=100 value="{{ request.form.score if request.form else '' }}" required>
+
+        <label for="hrs">Maintainance hours</label>
+        <input type="number" id="hrs" name="hrs" min=1 max=50 value="{{ request.form.hrs if request.form else '' }}" required>
+
+        <label for="stock">Stockout rate</label>
+        <input type="number" id="stock" name="stock" min=0 max=10 step=0.1 value="{{ request.form.stock if request.form else '' }}" required>
+
+        <label for="safety">Safety incidents/month</label>
+        <input type="number" id="safety" name="safety" min=0 max=30 value="{{ request.form.safety if request.form else '' }}" required>
+
+        <label for="energy">Energy efficiency</label>
+        <input type="number" id="energy" name="energy" min=0 max=1 step=0.1 value="{{ request.form.energy if request.form else '' }}" required>
+
+        <button type="submit">Predict</button>
+    </form>
+</div>
+<h3> {{ text }} </h3>
+</body>
+</html>
